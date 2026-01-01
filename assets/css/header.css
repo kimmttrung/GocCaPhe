@@ -1,0 +1,29 @@
+/* ===== HEADER DÙNG CHUNG ===== */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+
+    background: #ffffff;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    z-index: 1000;
+}
+
+.nav a {
+    color: #4a2e0e;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    color: #be380f;
+}
+
+/* tránh header che nội dung */
+
