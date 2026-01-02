@@ -73,34 +73,86 @@
     color: #f5c16c;
 }
 
+/* Container chính */
 .user-dropdown {
     position: relative;
-    color: #fff;
+    display: inline-block;
+    padding: 15px 0;
+    /* Quan trọng: Tạo vùng đệm liên tục để không bị mất hover */
+}
+
+.user-name-display {
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+/* Nút bấm */
+.dropdown-trigger {
+    padding: 10px 15px;
     cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    /* Tạo nền mờ để dễ nhìn vùng bấm */
+    border-radius: 5px;
 }
 
+.dropdown-trigger span {
+    color: #f5c16c;
+    font-weight: bold;
+}
+
+/* Menu thả xuống */
 .dropdown-menu {
-    display: none;
+    visibility: hidden;
+    /* Dùng visibility thay vì display để tránh lỗi nhảy chuột */
+    opacity: 0;
     position: absolute;
+    top: 100%;
     right: 0;
-    background: #fff;
-    color: #000;
-    border-radius: 6px;
-    margin-top: 10px;
-    overflow: hidden;
+    background: #ffffff;
+    min-width: 160px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    transform: translateY(0px);
+    /* Gắn sát mép */
+    z-index: 999999;
+    /* Số cực lớn để nó luôn nổi trên cùng */
 }
 
+/* KHOẢNG CÁCH TÀNG HÌNH: Đây là thứ giúp bạn di chuột không bị mất menu */
+.dropdown-menu::after {
+    content: "";
+    position: absolute;
+    top: -20px;
+    /* Tạo một "cây cầu" tàng hình dài 20px nối lên trên */
+    left: 0;
+    width: 100%;
+    height: 20px;
+}
+
+/* Khi hover vào container */
+.user-dropdown:hover .dropdown-menu {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(5px);
+    /* Trượt xuống nhẹ nhàng khi hiện */
+}
+
+/* Link bên trong */
 .dropdown-menu a {
+    color: #333 !important;
+    padding: 12px 20px;
     display: block;
-    padding: 10px 16px;
-    color: #000;
     text-decoration: none;
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown-menu a:last-child {
+    border: none;
 }
 
 .dropdown-menu a:hover {
-    background: #f5c16c;
-}
-
-.user-dropdown:hover .dropdown-menu {
-    display: block;
+    background: #fdf2e2;
+    color: #2b1e16 !important;
 }

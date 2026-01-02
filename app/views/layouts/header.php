@@ -61,10 +61,9 @@ $current_url = $_GET['url'] ?? 'index';
                     Admin Panel
                 </a>
             <?php endif; ?>
-
-            <?php if ($user): ?>
+              <?php if ($user): ?>
                 <div class="user-dropdown">
-                    <span><?= htmlspecialchars($user['name']) ?> ▾</span>
+                    <span class="user-name-display"><?= htmlspecialchars($user['name']) ?> ▾</span>
                     <div class="dropdown-menu">
                         <a href="#">Tài khoản</a>
                         <a href="/GocCaPhe/public/index.php?url=logout">Đăng xuất</a>
