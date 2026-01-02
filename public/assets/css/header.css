@@ -1,29 +1,106 @@
-/* ===== HEADER DÙNG CHUNG ===== */
-.nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-
-    background: #ffffff;
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-    z-index: 1000;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.nav a {
-    color: #4a2e0e;
+.header {
+    background: #2b1e16;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 14px 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    font-size: 24px;
     font-weight: bold;
+    color: #f5c16c;
     text-decoration: none;
 }
 
-.nav a:hover {
-    color: #be380f;
+.nav-menu a {
+    margin: 0 15px;
+    color: #fff;
+    text-decoration: none;
+    position: relative;
 }
 
-/* tránh header che nội dung */
+.nav-menu a::after {
+    content: '';
+    width: 0;
+    height: 2px;
+    background: #f5c16c;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    transition: 0.3s;
+}
 
+.nav-menu a:hover::after {
+    width: 100%;
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-cart {
+    background: #f5c16c;
+    color: #2b1e16;
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+.btn-admin {
+    color: #ff6b6b;
+}
+
+.btn-register {
+    border: 1px solid #f5c16c;
+    padding: 6px 14px;
+    border-radius: 20px;
+    color: #f5c16c;
+}
+
+.user-dropdown {
+    position: relative;
+    color: #fff;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: #fff;
+    color: #000;
+    border-radius: 6px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 16px;
+    color: #000;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background: #f5c16c;
+}
+
+.user-dropdown:hover .dropdown-menu {
+    display: block;
+}

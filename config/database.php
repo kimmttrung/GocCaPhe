@@ -14,3 +14,4 @@ class Database {
         return self::$conn;
     }
 }
+    
