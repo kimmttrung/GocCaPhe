@@ -13,6 +13,7 @@
         <th>Tên Product</th>
         <th>Category</th>
         <th>Price</th>
+        <th>Description</th>
         <th>Status</th>
         <th>Ảnh</th> <!-- cột mới -->
         <th class="text-center">Hành động</th>
@@ -25,6 +26,7 @@
         <td><?= htmlspecialchars($p['name']) ?></td>
         <td><?= htmlspecialchars($p['category_name'] ?? 'Không có') ?></td>
         <td><?= number_format($p['price']) ?>₫</td>
+        <td><?= htmlspecialchars($p['description']) ?></td>
         <td>
             <span class="badge <?= $p['status']=='AVAILABLE'?'bg-success':'bg-secondary' ?>"><?= $p['status'] ?></span>
         </td>

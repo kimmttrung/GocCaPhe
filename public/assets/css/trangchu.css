@@ -53,3 +53,9 @@
 .sub-images img:hover {
   transform: scale(1.05);
 }
+
+/* Padding-top bằng hoặc lớn hơn chiều cao header */
+.container {
+  padding-top: 90px;
+  /* header 70px + 20px margin */
+}

@@ -14,6 +14,7 @@ $current_url = $_GET['url'] ?? 'index';
     <link rel="stylesheet" href="/GocCaPhe/public/assets/css/header.css">
     <link rel="stylesheet" href="/GocCaPhe/public/assets/css/trangchu.css">
     <link rel="stylesheet" href="/GocCaPhe/public/assets/css/footer.css">
+    <link rel="stylesheet" href="/GocCaPhe/public/assets/css/style.css">
 </head>
 <body>
 
