@@ -9,6 +9,15 @@ switch ($url) {
         (new HomeController)->index();
         break;
 
+    case '':
+        (new HomeController)->index();
+        break;
+        
+    case 'cart/add':
+        requireLogin();
+        (new CartController)->add();
+        break;
+
     /* AUTH — KHÔNG ĐƯỢC CHẶN */
     case 'login':
         (new AuthController)->login();
