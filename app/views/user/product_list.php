@@ -35,11 +35,9 @@ require_once __DIR__ . '/../layouts/header.php';
 
                 <div class="price-btn-wrapper">
                     <p class="price"><?= number_format($p['price'], 0, ',', '.') ?>₫</p>
-                    <form method="post" action="/GocCaPhe/public/index.php?url=cart/add">
+                    <form class="add-to-cart-form">
                         <input type="hidden" name="product_id" value="<?= $p['id'] ?>">
-                        <button type="submit" <?= $p['status'] == 'HIDDEN' ? 'disabled' : '' ?>>
-                            Thêm vào giỏ
-                        </button>
+                        <button type="submit" <?= $p['status'] == 'HIDDEN' ? 'disabled' : '' ?>>Thêm vào giỏ</button>
                     </form>
                 </div>
             </div>
@@ -48,5 +46,44 @@ require_once __DIR__ . '/../layouts/header.php';
 </div>
 
 </div>
+<script>
+document.querySelectorAll('.add-to-cart-form').forEach(form => {
+    form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const formData = new FormData(form);
+
+        const res = await fetch('/GocCaPhe/public/index.php?url=cart/add', {
+            method: 'POST',
+            body: formData
+        });
+
+        if(res.ok){
+            const data = await res.json();
+
+            if(data.success){
+                // toast
+                const toast = document.createElement('div');
+                toast.className = 'cart-toast';
+                toast.textContent = '✅ Thêm vào giỏ hàng thành công';
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 3000);
+
+                // update số lượng giỏ hàng
+                const cartSpan = document.querySelector('.btn-cart .cart-count');
+                if(cartSpan){
+                    cartSpan.textContent = data.cartCount;
+                } else {
+                    const span = document.createElement('span');
+                    span.className = 'cart-count';
+                    span.textContent = data.cartCount;
+                    document.querySelector('.btn-cart').appendChild(span);
+                }
+            }
+        }
+    });
+});
+
+</script>
+
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>

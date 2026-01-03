@@ -20,6 +20,20 @@ switch ($url) {
         (new CartController)->add();
         break;
 
+    case 'cart/checkout':
+        requireLogin();
+        (new CartController)->checkout();
+        break;
+
+    case 'cart/payment':
+        requireLogin();
+        (new CartController)->payment();
+        break;
+
+    case 'cart/count':
+    (new CartController)->count();
+    break;
+
     /* AUTH — KHÔNG ĐƯỢC CHẶN */
     case 'login':
         (new AuthController)->login();
@@ -42,6 +56,16 @@ switch ($url) {
     case 'gioithieu':
     (new PageController)->gioithieu();
     break;
+
+    case 'cart':
+        requireLogin();
+        (new CartController)->index();
+        break;
+
+    case 'cart/add':
+        requireLogin();
+        (new CartController)->add();
+        break;
 
     /* STAFF */
     case 'staff':
