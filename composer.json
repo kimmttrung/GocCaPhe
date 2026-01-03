@@ -1,12 +1,15 @@
 {
-    "name": "thang/goc-ca-phe",
+    "name": "admin/goc-ca-phe",
     "autoload": {
         "psr-4": {
-            "Thang\\GocCaPhe\\": "src/"
+            "Admin\\GocCaPhe\\": "src/"
         }
     },
-    "require": {
-        "phpoffice/phpspreadsheet": "1.28.0",
-        "maennchen/zipstream-php": "2.1.0"
-    }
+    "authors": [
+        {
+            "name": "kimmttrung",
+            "email": "160985982+kimmttrung@users.noreply.github.com"
+        }
+    ],
+    "require": {}
 }
