@@ -187,9 +187,25 @@ case 'register-handle':
     (new AuthController)->handleRegister();
     break;
 
+    case 'profile':
+        requireLogin();
+        (new UserController)->profile();
+        break;
+
+    case 'profile/update':
+        requireLogin();
+        (new UserController)->updateProfile();
+        break;
+
+    case 'profile/update-password':
+        requireLogin();
+        (new UserController)->updatePassword();
+        break;
+
     default:
         http_response_code(404);
         echo "404 - Không tìm thấy trang";
 
     
 }
+

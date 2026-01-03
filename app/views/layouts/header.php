@@ -16,6 +16,7 @@ $current_url = $_GET['url'] ?? 'index';
     <link rel="stylesheet" href="/GocCaPhe/public/assets/css/footer.css">
     <link rel="stylesheet" href="/GocCaPhe/public/assets/css/style.css">
     <link rel="stylesheet" href="/GocCaPhe/public/assets/css/introduce.css">
+    <link rel="stylesheet" href="/GocCaPhe/public/assets/css/profile.css">
 </head>
 <body>
 
@@ -67,7 +68,7 @@ $current_url = $_GET['url'] ?? 'index';
                 <div class="user-dropdown">
                     <span class="user-name-display"><?= htmlspecialchars($user['name']) ?> ▾</span>
                     <div class="dropdown-menu">
-                        <a href="#">Tài khoản</a>
+                        <a href="/GocCaPhe/public/index.php?url=profile">Tài khoản</a>
                         <a href="/GocCaPhe/public/index.php?url=logout">Đăng xuất</a>
                     </div>
                 </div>
