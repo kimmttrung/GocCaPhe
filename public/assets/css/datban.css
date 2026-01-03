@@ -1,55 +1,83 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f9f9f9;
-}
-.header {
-    display: flex;
-    justify-content: space-between;
-    padding: 40px 80px;
-}
-.section {
-    padding: 40px 80px;
-}.datban-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+/* ====== RESET NHẸ ====== */
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
 }
 
-.datban-form label {
-    font-weight: bold;
-    margin-bottom: 5px;
+/* ====== TIÊU ĐỀ ====== */
+.datban-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+    margin: 30px 0 20px;
+    color: #4a2c1a;
 }
 
-.datban-form input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+/* ====== KHUNG FORM ====== */
+.datban-wrapper {
+    max-width: 420px;
+    margin: 0 auto 50px;
+    padding: 25px 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
-.datban-form input:focus {
+/* ====== LABEL ====== */
+.datban-wrapper label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* ====== INPUT + TEXTAREA ====== */
+.datban-wrapper input,
+.datban-wrapper textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    margin-bottom: 15px;
+    transition: 0.2s;
+}
+
+.datban-wrapper textarea {
+    resize: none;
+    min-height: 80px;
+}
+
+.datban-wrapper input:focus,
+.datban-wrapper textarea:focus {
     outline: none;
-    border-color: #c47a2c;
-    box-shadow: 0 0 5px rgba(196, 122, 44, 0.5);
+    border-color: #8b5e3c;
+    box-shadow: 0 0 0 2px rgba(139,94,60,0.15);
 }
 
-.datban-form .button {
-    background-color: #c47a2c;
+/* ====== NÚT ĐẶT BÀN ====== */
+.datban-wrapper button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #8b5e3c, #5a3823);
     color: #fff;
     border: none;
-    padding: 12px;
-    font-size: 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background 0.3s;
+    transition: 0.25s;
 }
 
-.datban-form .button:hover {
-    background-color: #a05e1f;
-}
-.error {
-    color: red;
-    margin-bottom: 10px;
+.datban-wrapper button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
+/* ====== THÔNG BÁO ====== */
+.datban-success {
+    text-align: center;
+    margin-top: 15px;
+    color: #2e7d32;
+    font-weight: 600;
+}

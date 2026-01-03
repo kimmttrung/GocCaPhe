@@ -4,14 +4,25 @@ class Database {
 
     public static function connect() {
         if (self::$conn === null) {
-            self::$conn = new PDO(
-                "mysql:host=localhost;dbname=coffee_shop;charset=utf8mb4",
-                "root",
-                ""
-            );
-            self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            try {
+                $host = 'localhost';
+                $db   = 'coffee_shop'; // Đảm bảo tên DB này đúng trong phpMyAdmin
+                $user = 'root';
+                $pass = ''; 
+                $charset = 'utf8mb4';
+
+                $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+                $options = [
+                    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                    PDO::ATTR_EMULATE_PREPARES   => false,
+                ];
+
+                self::$conn = new PDO($dsn, $user, $pass, $options);
+            } catch (PDOException $e) {
+                die('Lỗi kết nối CSDL: ' . $e->getMessage());
+            }
         }
         return self::$conn;
     }
-}
-    
+} 
