@@ -175,6 +175,13 @@ switch ($url) {
         (new AdminRevenueController)->delete();
         break;
 
+case 'register':
+    (new AuthController)->register();
+    break;
+
+case 'register-handle':
+    (new AuthController)->handleRegister();
+    break;
 
     default:
         http_response_code(404);
