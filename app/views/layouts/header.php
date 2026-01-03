@@ -1,8 +1,16 @@
 <?php
+require_once __DIR__ . '/../../../core/bootstrap.php';
 $user = $_SESSION['user'] ?? null;
 $role = $user['role'] ?? null;
 $current_url = $_GET['url'] ?? 'index';
+
+$cartCount = 0;
+if ($user && $role === 'USER') {
+    $cartCount = CartController::getCartCount($user['id']);
+}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -17,6 +25,7 @@ $current_url = $_GET['url'] ?? 'index';
     <link rel="stylesheet" href="/GocCaPhe/public/assets/css/style.css">
 </head>
 <body>
+
 
 
 <header class="header">
@@ -50,7 +59,10 @@ $current_url = $_GET['url'] ?? 'index';
             <?php if ($role === 'USER'): ?>
                 <a href="/GocCaPhe/public/index.php?url=cart" class="btn-cart">
                     🛒 Giỏ hàng
-                </a>
+                    <?php if ($cartCount > 0): ?>
+                       <span class="cart-count" id="cart-count"><?= $cartCount ?></span>
+                    <?php endif; ?>
+            </a>
 
             <?php elseif ($role === 'STAFF'): ?>
                 <a href="/GocCaPhe/public/index.php?url=staff" class="btn-staff">
@@ -65,7 +77,7 @@ $current_url = $_GET['url'] ?? 'index';
               <?php if ($user): ?>
                 <div class="user-dropdown">
                     <span class="user-name-display"><?= htmlspecialchars($user['name']) ?> ▾</span>
-                    <div class="dropdown-menu">
+                    <div class="user-menu">
                         <a href="#">Tài khoản</a>
                         <a href="/GocCaPhe/public/index.php?url=logout">Đăng xuất</a>
                     </div>
@@ -80,5 +92,36 @@ $current_url = $_GET['url'] ?? 'index';
         </div>
 
     </div>
+
     
 </header>
+    <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Optional JS (cho modal, dropdown, tooltip)
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> -->
+
+
+<script>
+function refreshCartCount(){
+    fetch('/GocCaPhe/public/index.php?url=cart/count')
+        .then(res => res.json())
+        .then(data => {
+            const el = document.getElementById('cart-count');
+            if(!el) return;
+
+            if(data.count > 0){
+                el.textContent = data.count;
+                el.style.display = 'inline-block';
+            } else {
+                el.style.display = 'none';
+            }
+        });
+}
+
+// gọi ngay khi load
+refreshCartCount();
+
+// gọi lại sau mỗi 2s (hoặc sau AJAX add/delete)
+setInterval(refreshCartCount, 2000);
+</script>
