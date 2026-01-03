@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require_once __DIR__ . '/../core/bootstrap.php';
 
 $url = $_GET['url'] ?? '';
@@ -140,6 +142,39 @@ switch ($url) {
         requireRole('ADMIN');
         (new AdminProductController)->delete();
         break;
+    
+     /* ADMIN - REVENUE MANAGEMENT */
+    case 'admin/revenue':
+    case 'admin/revenues':   // hỗ trợ cả 2 URL
+        requireRole('ADMIN');
+        (new AdminRevenueController)->index();
+        break;
+
+    case 'admin/revenue/create':
+        requireRole('ADMIN');
+        (new AdminRevenueController)->create();
+        break;
+
+    case 'admin/revenue/store':
+        requireRole('ADMIN');
+        (new AdminRevenueController)->store();
+        break;
+
+    case 'admin/revenue/edit':
+        requireRole('ADMIN');
+        (new AdminRevenueController)->edit();
+        break;
+
+    case 'admin/revenue/update':
+        requireRole('ADMIN');
+        (new AdminRevenueController)->update();
+        break;
+
+    case 'admin/revenue/delete':
+        requireRole('ADMIN');
+        (new AdminRevenueController)->delete();
+        break;
+
 
     default:
         http_response_code(404);
