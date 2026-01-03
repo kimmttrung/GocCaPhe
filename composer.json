@@ -1,0 +1,12 @@
+{
+    "name": "thang/goc-ca-phe",
+    "autoload": {
+        "psr-4": {
+            "Thang\\GocCaPhe\\": "src/"
+        }
+    },
+    "require": {
+        "phpoffice/phpspreadsheet": "1.28.0",
+        "maennchen/zipstream-php": "2.1.0"
+    }
+}

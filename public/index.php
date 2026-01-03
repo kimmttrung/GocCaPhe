@@ -1,18 +1,19 @@
+
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../core/bootstrap.php';
 
 $url = $_GET['url'] ?? '';
 
 switch ($url) {
-
+    
     case '':
         (new HomeController)->index();
         break;
 
-    case '':
-        (new HomeController)->index();
-        break;
-        
     case 'cart/add':
         requireLogin();
         (new CartController)->add();
@@ -36,6 +37,14 @@ switch ($url) {
         requireLogin();
         (new ProductController)->list();
         break;
+
+    case 'datban':
+        (new HomeController)->datban();
+    break;
+
+    case 'reservation/store':
+        (new ReservationController)->store();
+    break;
 
     /* STAFF */
     case 'staff':
@@ -140,6 +149,23 @@ switch ($url) {
         requireRole('ADMIN');
         (new AdminProductController)->delete();
         break;
+    
+    /* ADMIN - RESERVATIONS */
+
+    case 'admin/reservations':
+        requireRole('ADMIN');
+        (new AdminReservationController)->index();
+    break;
+
+    case 'admin/reservations/approve':
+        requireRole('ADMIN');
+        (new AdminReservationController)->approve();
+    break;
+
+    case 'admin/reservations/cancel':
+        requireRole('ADMIN');
+        (new AdminReservationController)->cancel();
+    break;
 
     default:
         http_response_code(404);
