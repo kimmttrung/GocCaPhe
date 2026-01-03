@@ -17,4 +17,5 @@ require_once __DIR__ . '/../app/controllers/CartController.php';
 require_once __DIR__ . '/../app/controllers/AdminRevenueController.php';
 require_once __DIR__ . '/../app/controllers/PageController.php';
 require_once __DIR__ . '/../app/controllers/UserController.php';
+require_once __DIR__ . '/../app/controllers/OrderController.php';
 

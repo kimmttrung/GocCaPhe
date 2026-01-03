@@ -14,9 +14,18 @@
     </a>
 
     <a href="?url=cart&status=PAID"
-       class="btn btn-outline-success <?= ($_GET['status'] ?? '')==='PAID' ? 'active' : '' ?>">
+       class="btn btn-outline-info <?= ($_GET['status'] ?? '')==='PAID' ? 'active' : '' ?>">
         Đã thanh toán (PAID)
     </a>
+    <a href="?url=cart&status=APPROVED"
+    class="btn btn-outline-success <?= ($_GET['status'] ?? '')==='APPROVED' ? 'active' : '' ?>">
+        Đã duyệt
+    </a>
+
+    <a href="?url=cart&status=CANCELLED"
+        class="btn btn-outline-danger <?= ($_GET['status'] ?? '')==='CANCELLED' ? 'active' : '' ?>">
+            Đã hủy
+        </a>
 </div>
         <form id="cart-form">
             
@@ -32,33 +41,43 @@
                         <th>Trạng thái</th>
                         <th>Tạm tính</th>
                         <th>Ảnh</th>
-                        <th class="text-center">Xóa</th>
+                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($items as $item): 
-                        $isPaid = ($item['status']=='PAID');
+                        $isPaid = ($item['order_status']=='PENDING');
                     ?>
                        <tr data-order-item-id="<?= $item['order_item_id'] ?>">
                             <td>
                                 <input type="checkbox"
                                     class="item-checkbox"
                                     value="<?= $item['order_item_id'] ?>"
-                                    <?= $item['status']==='PAID' ? 'disabled' : '' ?>>
+                                    <?= $item['order_status']!=='PENDING' ? 'disabled' : '' ?>
+                                    >
 
                             </td>
                             <td><?= htmlspecialchars($item['name']) ?></td>
                             <td>
                                 <div class="input-group" style="width:120px;">
-                                    <button type="button" class="btn btn-outline-secondary btn-decrease" <?= $item['status']=='PAID' ? 'disabled' : '' ?>>-</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-decrease" <?= $item['order_status']!=='PENDING' ? 'disabled' : '' ?>>-</button>
                                     <input type="text" class="form-control text-center quantity-input" value="<?= $item['quantity'] ?>" readonly>
-                                    <button type="button" class="btn btn-outline-secondary btn-increase" <?= $item['status']=='PAID' ? 'disabled' : '' ?>>+</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-increase" <?= $item['order_status']!=='PENDING' ? 'disabled' : '' ?>>+</button>
                                 </div>
                             </td>
                             <td class="price"><?= number_format($item['price'],0,',','.') ?>₫</td>
                             <td>
-                                <span class="badge <?= $item['status']=='PAID' ? 'bg-success' : 'bg-warning' ?>">
-                                    <?= $item['status'] ?>
+                                <?php
+                                $badgeClass = match($item['order_status']){
+                                    'PENDING'   => 'bg-warning',
+                                    'PAID'      => 'bg-info',
+                                    'APPROVED'  => 'bg-success',
+                                    'CANCELLED' => 'bg-danger',
+                                    default     => 'bg-secondary'
+                                };
+                                ?>
+                                <span class="badge <?= $badgeClass ?>">
+                                    <?= $item['order_status'] ?>
                                 </span>
                             </td>
                             <td class="subtotal"><?= number_format($item['price'] * $item['quantity'],0,',','.') ?>₫</td>
@@ -70,20 +89,39 @@
                                 <?php endif; ?>
                             </td>
                             <td class="text-center">
-                                <button type="button"
-                                    class="btn btn-sm btn-danger btn-delete"
-                                    data-id="<?= $item['order_item_id'] ?>">
-                                    🗑️
-                                </button>
-                            </td>
+                                <?php if ($item['order_status'] === 'PENDING'): ?>
+                                    <button type="button"
+                                        class="btn btn-sm btn-danger btn-delete"
+                                        data-id="<?= $item['order_item_id'] ?>">
+                                        🗑️
+                                    </button>
+
+                                <?php elseif ($item['order_status'] === 'PAID'): ?>
+                                    <span class="badge bg-info">Đơn hàng đang chờ xử lý</span>
+                                
+                                <?php elseif ($item['order_status'] === 'CANCELLED'): ?>
+                                    <span class="badge bg-danger">Đơn hàng đã bị hủy</span>
+
+                                <?php elseif (in_array($item['order_status'], ['APPROVED'])): ?>
+                                    <span class="badge bg-success">Đơn hàng đã được duyệt, đang ship đến</span>
+
+                                <?php else: ?>
+                                    <span class="badge bg-success">Hoàn tất</span>
+                                <?php endif; ?>
+                                </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
 
             <div class="d-flex justify-content-between align-items-center mt-3">
-                <h4>Tổng tiền: <span id="total-price">0₫</span></h4>
-                <button type="button" id="checkout-btn" class="btn btn-success">Đặt hàng ngay</button>
+                
+                <?php if (($_GET['status'] ?? 'PENDING') === 'PENDING'): ?>
+                    <h4>Tổng tiền: <span id="total-price">0₫</span></h4>
+                    <button type="button" id="checkout-btn" class="btn btn-success">
+                        Đặt hàng ngay
+                    </button>
+                <?php endif; ?>
             </div>
         </form>
     <?php endif; ?>
@@ -181,26 +219,30 @@
         // Redirect sang trang nhập địa chỉ & thanh toán
         window.location.href = '/GocCaPhe/public/index.php?url=cart/checkout&items='+selectedIds.join(',');
     });
+    document.addEventListener('click', function(e){
+        if(e.target.closest('.btn-delete')){
+            const btn = e.target.closest('.btn-delete');
+            const id = btn.dataset.id;
 
-   document.querySelectorAll('.btn-delete').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-        const id = btn.dataset.id;
-        if(!confirm('Bạn có chắc muốn xóa?')) return;
+            if(!confirm('Bạn có chắc muốn xóa?')) return;
 
-        fetch('/GocCaPhe/public/index.php?url=cart/delete', {
-            method: 'POST',
-            headers: {'Content-Type':'application/x-www-form-urlencoded'},
-            body: 'id=' + id
-        })
-        .then(res=>res.json())
-        .then(data=>{
-            if(data.success){
-                btn.closest('tr').remove();
-                calculateTotal();
-            }
-        });
+            fetch('/GocCaPhe/public/index.php?url=cart/delete', {
+                method:'POST',
+                headers:{'Content-Type':'application/x-www-form-urlencoded'},
+                body:'id=' + id
+            })
+            .then(r=>r.json())
+            .then(res=>{
+                if(res.success){
+                    btn.closest('tr').remove();
+                    calculateTotal();
+                } else {
+                    alert('Không thể xóa sản phẩm');
+                }
+            });
+        }
     });
-});
+
 
 
 // Tính tổng ngay khi load

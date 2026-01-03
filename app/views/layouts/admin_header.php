@@ -32,8 +32,14 @@ $current_url = $_GET['url'] ?? '';
                     <a class="nav-link <?= ($current_url=='admin/products')?'active':'' ?>" href="?url=admin/products">Products</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link <?= ($current_url=='admin/orders')?'active':'' ?>" href="?url=admin/orders">
+                        Duyệt đơn
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link <?= ($current_url=='admin/revenue')?'active':'' ?>" href="?url=admin/revenue">Doanh thu</a>
                 </li>
+
             </ul>
 
             <div class="d-flex align-items-center">

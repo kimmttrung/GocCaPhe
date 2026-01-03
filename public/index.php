@@ -33,6 +33,15 @@ switch ($url) {
     case 'cart/count':
     (new CartController)->count();
     break;
+    case 'cart/delete':
+        requireLogin();
+        (new CartController)->delete();
+        break;
+
+    case 'cart/updateQuantity':
+        requireLogin();
+        (new CartController)->updateQuantity();
+        break;
 
     case 'cart':
         requireLogin();
@@ -67,8 +76,10 @@ switch ($url) {
     /* STAFF */
     case 'staff':
         requireRole('STAFF');
-        echo "Trang nhân viên";
+        (new AdminUserController)->index();
         break;
+    
+
 
     /* ADMIN - USER MANAGEMENT */
     case 'admin':
@@ -169,7 +180,6 @@ switch ($url) {
         break;
     
      /* ADMIN - REVENUE MANAGEMENT */
-    case 'admin/revenue':
     case 'admin/revenues':   // hỗ trợ cả 2 URL
         requireRole('ADMIN');
         (new AdminRevenueController)->index();
@@ -200,13 +210,13 @@ switch ($url) {
         (new AdminRevenueController)->delete();
         break;
 
-case 'register':
-    (new AuthController)->register();
-    break;
+    case 'register':
+        (new AuthController)->register();
+        break;
 
-case 'register-handle':
-    (new AuthController)->handleRegister();
-    break;
+    case 'register-handle':
+        (new AuthController)->handleRegister();
+        break;
 
     case 'profile':
         requireLogin();
@@ -222,6 +232,24 @@ case 'register-handle':
         requireLogin();
         (new UserController)->updatePassword();
         break;
+
+    /* ORDER APPROVAL - ADMIN + STAFF */
+
+    case 'admin/orders':
+        requireStaffOrAdmin();
+        (new OrderController)->index();
+        break;
+
+    case 'admin/orders/approve':
+        requireStaffOrAdmin();
+        (new OrderController)->approve();
+        break;
+
+    case 'admin/orders/reject':
+        requireStaffOrAdmin();
+        (new OrderController)->reject();
+        break;
+
 
     default:
         http_response_code(404);

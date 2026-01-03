@@ -66,9 +66,9 @@ public function index()
     $pdo = Database::connect();
     $userId = $_SESSION['user']['id'];
 
-    // mặc định PENDING
+    // lọc theo trạng thái order
     $status = $_GET['status'] ?? 'PENDING';
-    if (!in_array($status, ['PENDING', 'PAID'])) {
+    if (!in_array($status, ['PENDING', 'PAID', 'APPROVED', 'CANCELLED'])) {
         $status = 'PENDING';
     }
 
@@ -80,14 +80,16 @@ public function index()
             p.image,
             oi.quantity,
             oi.price,
-            oi.status
+
+            o.status AS order_status
         FROM order_items oi
         JOIN orders o ON o.id = oi.order_id
         JOIN products p ON p.id = oi.product_id
         WHERE o.user_id = ?
-          AND oi.status = ?
+          AND o.status = ?
         ORDER BY oi.id DESC
     ");
+
     $stmt->execute([$userId, $status]);
     $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -96,8 +98,9 @@ public function index()
 
 
 
+
     // Trang nhập địa chỉ + chọn phương thức thanh toán
-  public function checkout()
+public function checkout()
 {
     $ids = $_GET['items'] ?? '';
     if (!$ids) {
@@ -115,9 +118,10 @@ public function index()
             oi.quantity,
             oi.price
         FROM order_items oi
+        JOIN orders o ON o.id = oi.order_id
         JOIN products p ON p.id = oi.product_id
         WHERE oi.id IN (" . implode(',', $ids) . ")
-          AND oi.status='PENDING'
+          AND o.status = 'PENDING'
     ");
     $stmt->execute();
     $items = $stmt->fetchAll();
@@ -128,74 +132,94 @@ public function index()
 
 public function delete()
 {
-    $ids = $_POST['id'] ?? '';
+    $id = $_POST['id'] ?? 0;
     $userId = $_SESSION['user']['id'];
 
-    if (!$ids) {
+    if (!$id) {
         echo json_encode(['success'=>false]);
         exit;
     }
 
-    $ids = array_map('intval', explode(',', $ids));
-    $in = implode(',', array_fill(0, count($ids), '?'));
-
     $pdo = Database::connect();
-    $stmt = $pdo->prepare("
-        DELETE oi FROM order_items oi
-        JOIN orders o ON o.id = oi.order_id
-        WHERE oi.id IN ($in)
-          AND oi.status='PENDING'
-          AND o.user_id=?
-    ");
-    $stmt->execute([...$ids, $userId]);
 
-    echo json_encode(['success'=>true]);
+    $stmt = $pdo->prepare("
+        DELETE oi
+        FROM order_items oi
+        JOIN orders o ON o.id = oi.order_id
+        WHERE oi.id = ?
+          AND o.user_id = ?
+          AND o.status = 'PENDING'
+    ");
+
+    $stmt->execute([$id, $userId]);
+
+    echo json_encode([
+    'success' => $stmt->rowCount() > 0
+]);
     exit;
 }
+
+
+
 
 public function payment()
 {
     $userId = $_SESSION['user']['id'];
     $items = array_map('intval', explode(',', $_POST['items'] ?? ''));
 
-    if (!$items) {
+    if (empty($items)) {
         header('Location: ?url=cart');
         exit;
     }
-
+    
     $pdo = Database::connect();
     $pdo->beginTransaction();
 
-    // 1️⃣ tạo order mới
-    $stmt = $pdo->prepare("
-        INSERT INTO orders (user_id, status)
-        VALUES (?, 'PAID')
-    ");
-    $stmt->execute([$userId]);
-    $newOrderId = $pdo->lastInsertId();
+    try {
+        // 1️⃣ tạo order PAID
+        $stmt = $pdo->prepare("
+            INSERT INTO orders (user_id, status, total_price)
+            VALUES (?, 'PAID', 0)
+        ");
+        $stmt->execute([$userId]);
+        $newOrderId = $pdo->lastInsertId();
 
-    // 2️⃣ copy item sang order mới
-    $stmt = $pdo->prepare("
-        INSERT INTO order_items (order_id, product_id, quantity, price, status)
-        SELECT ?, product_id, quantity, price, 'PAID'
-        FROM order_items
-        WHERE id IN (" . implode(',', $items) . ")
-          AND status='PENDING'
-    ");
-    $stmt->execute([$newOrderId]);
+        // 2️⃣ chuyển item sang order mới
+        $stmt = $pdo->prepare("
+            UPDATE order_items
+            SET order_id = ?
+            WHERE id IN (" . implode(',', $items) . ")
+        ");
+        $stmt->execute([$newOrderId]);
 
-    // 3️⃣ xóa item khỏi cart cũ
-    $stmt = $pdo->prepare("
-        DELETE FROM order_items
-        WHERE id IN (" . implode(',', $items) . ")
-          AND status='PENDING'
-    ");
-    $stmt->execute();
+        // 3️⃣ tính tổng tiền
+        $stmt = $pdo->prepare("
+            SELECT SUM(quantity * price)
+            FROM order_items
+            WHERE order_id = ?
+        ");
+        $stmt->execute([$newOrderId]);
+        $totalPrice = $stmt->fetchColumn() ?? 0;
 
-    $pdo->commit();
+        // 4️⃣ update total_price
+        $stmt = $pdo->prepare("
+            UPDATE orders
+            SET total_price = ?
+            WHERE id = ?
+        ");
+        $stmt->execute([$totalPrice, $newOrderId]);
 
-    require __DIR__ . '/../views/user/payment_success.php';
+        $pdo->commit();
+
+        require __DIR__ . '/../views/user/payment_success.php';
+
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        echo "Lỗi thanh toán";
+    }
 }
+
+
 
 public function count()
 {
@@ -229,20 +253,19 @@ public function updateQuantity()
             UPDATE order_items oi
             JOIN orders o ON o.id = oi.order_id
             SET oi.quantity = oi.quantity + 1
-            WHERE oi.id=? AND oi.status='PENDING' AND o.user_id=?
+            WHERE oi.id=? AND o.status='PENDING' AND o.user_id=?
         ");
     } else {
         $stmt = $pdo->prepare("
             UPDATE order_items oi
             JOIN orders o ON o.id = oi.order_id
             SET oi.quantity = GREATEST(1, oi.quantity - 1)
-            WHERE oi.id=? AND oi.status='PENDING' AND o.user_id=?
+            WHERE oi.id=? AND o.status='PENDING' AND o.user_id=?
         ");
     }
 
     $stmt->execute([$id, $userId]);
 
-    // lấy quantity mới
     $stmt = $pdo->prepare("SELECT quantity FROM order_items WHERE id=?");
     $stmt->execute([$id]);
     $qty = $stmt->fetchColumn();
@@ -250,6 +273,7 @@ public function updateQuantity()
     echo json_encode(['success'=>true, 'quantity'=>$qty]);
     exit;
 }
+
 
 }
 

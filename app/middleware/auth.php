@@ -16,3 +16,18 @@ function requireRole($role) {
         exit;
     }
 }
+function requireStaffOrAdmin()
+{
+    if (!isset($_SESSION['user'])) {
+        header('Location: ?url=login');
+        exit;
+    }
+
+    $role = $_SESSION['user']['role'] ?? '';
+
+    if (!in_array($role, ['ADMIN', 'STAFF'])) {
+        http_response_code(403);
+        echo "Bạn không có quyền truy cập";
+        exit;
+    }
+}
