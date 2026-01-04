@@ -40,6 +40,11 @@ $current_url = $_GET['url'] ?? '';
                     <a class="nav-link <?= ($current_url=='admin/reservations')?'active':'' ?>" href="?url=admin/reservations">Duyệt bàn</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link <?= ($current_url=='admin/staff')?'active':'' ?>" href="?url=admin/staff">
+                        Quản lý Nhân sự
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link <?= ($current_url=='admin/revenue')?'active':'' ?>" href="?url=admin/revenue">Doanh thu</a>
                 </li>
 

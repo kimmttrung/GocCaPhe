@@ -83,12 +83,27 @@ switch ($url) {
     break;
 
 
-    /* STAFF */
-    case 'staff':
-        requireRole('STAFF');
-        (new AdminUserController)->index();
+    case 'admin/staff':
+        requireRole('ADMIN');
+        // require_once __DIR__ . '/../controllers/AdminStaffController.php'; 
+        (new AdminStaffController)->index(); // Xem danh sách & lịch
         break;
-    
+
+    case 'admin/staff/store':
+        requireRole('ADMIN');
+        (new AdminStaffController)->storeSchedule(); // Lưu lịch mới
+        break;
+
+    case 'admin/staff/delete':
+        requireRole('ADMIN');
+        (new AdminStaffController)->deleteSchedule(); // Xóa lịch
+        break;
+
+    /* --- KHU VỰC CỦA NHÂN VIÊN (STAFF) --- */
+    case 'staff':
+        // Trang dashboard chính của nhân viên
+        (new StaffController)->index(); 
+        break;
 
 
     /* ADMIN - USER MANAGEMENT */
@@ -192,17 +207,17 @@ switch ($url) {
     /* ADMIN - RESERVATIONS */
 
     case 'admin/reservations':
-        requireRole('ADMIN');
+        requireStaffOrAdmin();
         (new AdminReservationController)->index();
     break;
 
     case 'admin/reservations/approve':
-        requireRole('ADMIN');
+        requireStaffOrAdmin();
         (new AdminReservationController)->approve();
     break;
 
     case 'admin/reservations/cancel':
-        requireRole('ADMIN');
+        requireStaffOrAdmin();
         (new AdminReservationController)->cancel();
     break;
         break;

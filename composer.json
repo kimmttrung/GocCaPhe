@@ -11,5 +11,13 @@
             "email": "160985982+kimmttrung@users.noreply.github.com"
         }
     ],
-    "require": {}
+    "require": {
+        "phpoffice/phpspreadsheet": "1.29.0",
+        "maennchen/zipstream-php": "2.1.0"
+    },
+    "config": {
+        "audit": {
+            "block-insecure": false
+        }
+    }
 }

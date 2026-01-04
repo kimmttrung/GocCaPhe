@@ -75,7 +75,7 @@ if ($user && !empty($user['avatar'])) {
             </a>
 
             <?php elseif ($role === 'STAFF'): ?>
-                <a href="/GocCaPhe/public/index.php?url=staff" class="btn-staff">
+                <a href="/GocCaPhe/public/index.php?url=staff" class="btn-cart">
                     Nhân viên
                 </a>
 

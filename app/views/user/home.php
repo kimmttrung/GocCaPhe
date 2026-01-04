@@ -17,7 +17,7 @@ require_once __DIR__ . '/../layouts/header.php';
 
 <section class="sub-images">
     <img src="/GocCaPhe/public/assets/img/g1.jpg">
-    <img src="/GocCaPhe/public/assets/img/g2.jpg">
+    <img src="/GocCaPhe/public/assets/img/g2.jpg">  
     <img src="/GocCaPhe/public/assets/img/g3.jpg">
     <img src="/GocCaPhe/public/assets/img/g4.jpg">
 </section>
