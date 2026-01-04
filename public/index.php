@@ -228,30 +228,6 @@ switch ($url) {
         (new AdminRevenueController)->index();
         break;
 
-    case 'admin/revenue/create':
-        requireRole('ADMIN');
-        (new AdminRevenueController)->create();
-        break;
-
-    case 'admin/revenue/store':
-        requireRole('ADMIN');
-        (new AdminRevenueController)->store();
-        break;
-
-    case 'admin/revenue/edit':
-        requireRole('ADMIN');
-        (new AdminRevenueController)->edit();
-        break;
-
-    case 'admin/revenue/update':
-        requireRole('ADMIN');
-        (new AdminRevenueController)->update();
-        break;
-
-    case 'admin/revenue/delete':
-        requireRole('ADMIN');
-        (new AdminRevenueController)->delete();
-        break;
 
     case 'register':
         (new AuthController)->register();
