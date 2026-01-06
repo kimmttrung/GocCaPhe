@@ -26,25 +26,38 @@ require_once __DIR__ . '/../layouts/header.php';
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label">Họ và tên</label>
-                            <input type="text" class="form-control" value="<?= htmlspecialchars($currentUser['name']) ?>" disabled>
-                            <small class="text-muted">Tên lấy theo tài khoản đăng ký.</small>
+                            <label class="form-label text-danger fw-bold">Họ và tên người nhận (*)</label>
+                            <input type="text" name="receiver_name" class="form-control" 
+                                value="<?= htmlspecialchars($currentUser['name']) ?>" 
+                                placeholder="Nhập họ tên người nhận hàng"
+                                required
+                                oninvalid="this.setCustomValidity('Vui lòng nhập tên người nhận hàng')"
+                                oninput="this.setCustomValidity('')">
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label text-danger fw-bold">Địa chỉ nhận hàng (*)</label>
                             <input type="text" name="address" class="form-control" 
-                                   value="<?= htmlspecialchars($currentUser['address'] ?? '') ?>" 
-                                   placeholder="Ví dụ: 123 Đường ABC, Quận 1, TP.HCM" required>
+                                value="<?= htmlspecialchars($currentUser['address'] ?? '') ?>" 
+                                placeholder="Ví dụ: 123 Đường ABC, Quận 1, TP.HCM" 
+                                required
+                                minlength="10"
+                                oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ cụ thể (ít nhất 10 ký tự)')"
+                                oninput="this.setCustomValidity('')">
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label text-danger fw-bold">Số điện thoại (*)</label>
                             <input type="text" name="phone" class="form-control" 
-                                   value="<?= htmlspecialchars($currentUser['phone'] ?? '') ?>" 
-                                   placeholder="Ví dụ: 0912345678" required>
-                        </div>
+                            value="<?= htmlspecialchars($currentUser['phone'] ?? '') ?>" 
+                            placeholder="Ví dụ: 0912345678" 
+                            required
+                            maxlength="10"
+                            pattern="^0[0-9]{9}$"
+                            oninvalid="this.setCustomValidity('Số điện thoại phải bắt đầu bằng số 0 và có đúng 10 chữ số')"
+                            oninput="this.setCustomValidity(''); this.value = this.value.replace(/[^0-9]/g, '');">
                     </div>
+                </div>
                 </div>
 
                 <div class="card shadow-sm mb-4">
