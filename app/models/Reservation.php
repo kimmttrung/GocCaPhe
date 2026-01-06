@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../config/Database.php';
+require_once dirname(__DIR__, 2) . '/config/Database.php';
 
 // Import đầy đủ các class cần thiết của PhpSpreadsheet
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
