@@ -1,5 +1,6 @@
 <?php
-require "../config/database.php";
+require_once dirname(__DIR__, 2) . '/config/Database.php';
+
 
 try {
     $db = Database::connect();
