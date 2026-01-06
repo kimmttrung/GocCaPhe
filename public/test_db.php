@@ -1,9 +1,9 @@
 <?php
-require "../config/database.php";
-
+require_once dirname(__DIR__, 1) . '/config/Database.php';
 try {
-    $db = Database::connect();
-    echo "Kết nối database thành công";
+    $database = new Database();
+    $db = $database->connect();
+    echo "✅ Database connected successfully!";
 } catch (Exception $e) {
-    echo "Lỗi: " . $e->getMessage();
+    echo "❌ Database connection failed: " . $e->getMessage();
 }
