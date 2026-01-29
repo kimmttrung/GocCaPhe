@@ -63,20 +63,36 @@ Dự án Website Quán Góc Cafe là nền tảng hỗ trợ kinh doanh và ph�
 ---
 
 ## 📸 Ảnh / GIF demo <a id="demo"></a>
-
+- 👤 Giao diện Khách hàng (User)
 <div align="center">
 
-![Giới thiệu](./GocCaPhe/public/images/HomePage.png)
-![Trang chủ](./00-fontend-react_mindmap/public/images/Dashboard.png)
-![Tạo nội dung từ AI](./00-fontend-react_mindmap/public/images/Flashcard.png)
-![Tạo nội dung từ AI](./00-fontend-react_mindmap/public/images/CreateWithAI.png)
-![Flashcard & Quiz](./00-fontend-react_mindmap/public/images/FlashcardQuiz.png)
-![Flashcard & Quiz](./00-fontend-react_mindmap/public/images/Dícussion.png)
-![Discusion](./00-fontend-react_mindmap/public/images/FlashcardQuiz.png)
-![Add Fiends](./00-fontend-react_mindmap//public/images/AddFriend.png)
-![Chat](./00-fontend-react_mindmap//public/images/Chat.png)
-![Chat](./00-fontend-react_mindmap//public/images/Leaderboard.png)
-![Chat](./00-fontend-react_mindmap//public/images/Setting.png)
+![Trang chủ](./public/assets/readme/HomePage.png)
+![Sản phẩm](./public/assets/readme/ListProduct.png)
+![Giới Thiệu](./public/assets/readme/Intro.png)
+![Đặt Bàn](./public/assets/readme/UserDatBan.png)
+![Order](./public/assets/readme/UserOrder.png)
+![Giới Thiệu](./public/assets/readme/ProfileUser.png)
+
+</div>
+
+- 👷 Giao diện Nhân viên (Staff)
+
+<div align="center"> 
+
+![Trang chủ nhân viên](./public/assets/readme/ProfileStaff.png)
+
+</div>
+
+- 🔑 Giao diện Quản trị (Admin)
+<div align="center"> 
+
+![Quản lý người dùng](./public/assets/readme/Users.png)
+![Quản lý danh mục](./public/assets/readme/Categories.png)
+![Quản lý sản phẩm](./public/assets/readme/Products.png)
+![Quản lý Đặt Bàn](./public/assets/readme/DatBan.png)
+![Quản lý đặt sản phẩm](./public/assets/readme/Orders.png)
+![Quản lý lịch làm việc nhân viên](./public/assets/readme/Staffs.png)
+![Doanh Thu](./public/assets/readme/DoanhThu.png)
 
 </div>
 
@@ -140,8 +156,8 @@ GocCafe_Website/
 <summary><strong>日本語</strong></summary>
 
 
-> スマート学習プラットフォーム：AIによるフラッシュカード・クイズ・マインドマップ生成（Text / PDF / DOC / Image 対応）
-> 学習モード・復習モード・試験モード・ゲーム・フレンド機能・Q&Aコミュニティ・バッジ/報酬システムを搭載。
+オンライン対応のカフェ管理・運営システム
+お客様の席予約・注文をサポートし、管理者がスタッフやメニューを効率的に運営できるプラットフォーム
 
 ## 📚 目次
 <summary>📖 クリックして表示</summary>
@@ -162,67 +178,76 @@ GocCafe_Website/
 
 ## 🚀 概要 <a id="link2"></a>
 
-Hackathon2025_StudyMate は、効率的な学習をサポートするプラットフォームです。
+Góc Cafe Webサイトは、カフェの運営と顧客対応を効率化するためのプラットフォームです
+以下のことを実現します
 
-- テキストやファイルから フラッシュカード・クイズ・マインドマップ を即生成
-- 間隔反復（spaced repetition）による復習機能
-- 模擬試験・学習ゲームモード
-- フレンドとつながり、資料を共有
-- 多分野の学習コミュニティに参加可能
+- 店舗の空間やサービス情報を分かりやすく提供
+- ドリンク・フードメニューの閲覧
+- オンラインでの席予約および注文によるユーザー体験の向上
+- アカウント管理、スタッフ管理、勤務スケジュールの最適化
 
 ## ✨ 主な機能 <a id="link3"></a>
-### 1️⃣ AIによる学習コンテンツ生成
+### 1️⃣ お客様向け（User）
 
-- テキスト入力 または PDF / DOC / 画像をアップロード 
-- AIが マインドマップ・フラッシュカード・クイズ を自動生成
-- 難易度や問題数のカスタマイズ可能
+- ホームページ閲覧：店舗紹介、雰囲気、キャンペーン情報
+- オンライン席予約：人数や備考付きで事前予約
+- 注文 & 支払い：カート管理、数量変更、オンライン決済
 
-### 2️⃣ 学習・復習・テスト・ゲームモード
+### 2️⃣ スタッフ向け（Staff）
 
-- **Study Mode**: フラッシュカードで学習 & 賢い復習スケジュール
-- **Review Mode**: クイズを解いて即フィードバック 
-- **Exam Mode**: タイマー付き模擬試験
-- **Games**: マッチング・早押し・ランキングバトル
+- 注文処理：注文の確認・承認
+- 席予約管理：空席確認および予約の承認・拒否
+- 勤怠 & 給与管理：勤務スケジュールと給与の確認
 
-### 3️⃣ インタラクティブ・マインドマップ
+### 3️⃣ 管理者向け（Admin）
 
-- AIが生成した思考マップを表示
-- ドラッグ操作で編集可能・画像 / PDFでエクスポート
-
-### 4️⃣ コミュニティ & フレンド機能
-
-- ユーザー同士のつながり・チャット・資料共有
-- Q&A掲示板・コメント・いいね・評価機能
-- 貢献ユーザー向けバッジ・ランキング
+- メニュー管理：カテゴリや商品（飲食）の追加・編集・削除
+- スタッフ管理：権限設定、シフト（朝・昼・夜）の割り当て
+- 統計・レポート：売上データ集計、Excel形式での出力
 
 ## 🛠 使用技術 <a id="link4"></a>
 
-| パート   | 技術 / ライブラリ                      |
-| -------- | -------------------------------------- |
-| Frontend | React + Vite + TailwindCSS + shadcn/ui |
-| Backend  | Node.js 20 / 22, Express, Socket.IO    |
-| Database | PostgreSQL + Drizzle ORM               |
-| Cloud    | Cloudinary                             |
-| AI       | Google Gemini API                      |
-| Auth     | JWT                                    |
+| 分類           | 技術 / ライブラリ                     |
+| -------------- | ------------------------------------- |
+| フロントエンド | HTML5 + CSS3 + JavaScript + Bootstrap |
+| バックエンド   | PHP (v8.x) + Laravel Framework        |
+| データベース   | MySQL (MariaDB)                       |
+| サーバー       | XAMPP ローカルサーバー                |
 
 ---
 
 ## 📸 デモ画像 / GIF <a id="link5"></a>
 
+- 👤 お客様画面（User）
 <div align="center">
 
-![Giới thiệu](./00-fontend-react_mindmap/public/images/HomePage.png)
-![Trang chủ](./00-fontend-react_mindmap/public/images/Dashboard.png)
-![Tạo nội dung từ AI](./00-fontend-react_mindmap/public/images/Flashcard.png)
-![Tạo nội dung từ AI](./00-fontend-react_mindmap/public/images/CreateWithAI.png)
-![Flashcard & Quiz](./00-fontend-react_mindmap/public/images/FlashcardQuiz.png)
-![Flashcard & Quiz](./00-fontend-react_mindmap/public/images/Dícussion.png)
-![Discusion](./00-fontend-react_mindmap/public/images/FlashcardQuiz.png)
-![Add Fiends](./00-fontend-react_mindmap//public/images/AddFriend.png)
-![Chat](./00-fontend-react_mindmap//public/images/Chat.png)
-![Chat](./00-fontend-react_mindmap//public/images/Leaderboard.png)
-![Chat](./00-fontend-react_mindmap//public/images/Setting.png)
+![Trang chủ](./public/assets/readme/HomePage.png)
+![Sản phẩm](./public/assets/readme/ListProduct.png)
+![Giới Thiệu](./public/assets/readme/Intro.png)
+![Đặt Bàn](./public/assets/readme/UserDatBan.png)
+![Order](./public/assets/readme/UserOrder.png)
+![Giới Thiệu](./public/assets/readme/ProfileUser.png)
+
+</div>
+
+- 👷 スタッフ画面（Staff）
+
+<div align="center"> 
+
+![Trang chủ nhân viên](./public/assets/readme/ProfileStaff.png)
+
+</div>
+
+- 🔑 管理者画面（Admin）
+<div align="center"> 
+
+![Quản lý người dùng](./public/assets/readme/Users.png)
+![Quản lý danh mục](./public/assets/readme/Categories.png)
+![Quản lý sản phẩm](./public/assets/readme/Products.png)
+![Quản lý Đặt Bàn](./public/assets/readme/DatBan.png)
+![Quản lý đặt sản phẩm](./public/assets/readme/Orders.png)
+![Quản lý lịch làm việc nhân viên](./public/assets/readme/Staffs.png)
+![Doanh Thu](./public/assets/readme/DoanhThu.png)
 
 </div>
 
@@ -232,81 +257,52 @@ Hackathon2025_StudyMate は、効率的な学習をサポートするプラッ�
 
 ### 必要環境
 
-- Node.js v20.14.0 or v22.14.0  
-- PostgreSQL 14+  
-- React 19
-- Cloudinary account  
-- Google Gemini API key  
+- PHP v8.x 以上
+- XAMPP（Apache・MySQL 含む）
+- Composer（Laravel パッケージ管理） 
 
 ### セットアップ手順（開発環境）
 
 ```bash
 # 1. プロジェクトをクローン
-git clone https://github.com/kimmttrung/Hackathon2025_StudyMate.git
+git clone https://github.com/kimmttrung/GocCaPhe
 
-# 2. ライブラリをインストール
-cd 00 （Tabキー → Enter）
-npm i
-cd 01 （Tabキー → Enter）
-npm i
+# 2. PHP ライブラリをインストール
+composer install
 
-# 3. .env ファイルを設定
-cp .env.example -> .env
-# DATABASE_URL, CLOUDINARY, GEMINI_API_KEY などを編集
+# 3. .env ファイル設定
+cp .env.example .env
 
-# 4. プロジェクトを起動
-npm start
+# 4. Laravel アプリキー生成
+php artisan key:generate
+
+# 5. サーバー起動
+php artisan serve
 
 ```
 
 ## 📂 ディレクトリ構成 <a id="link7"></a>
 ```bash
-00-frontend-react-mindmap/
-│── public/ # Static files (ảnh, favicon, ...)
-│── src/
-│ ├── components/ # Các component tái sử dụng
-│ ├── data/ # Dữ liệu tĩnh hoặc mock data
-│ ├── hooks/ # Custom React hooks
-│ ├── pages/ # Các page chính của ứng dụng
-│ ├── styles/ # File CSS/Tailwind tuỳ chỉnh
-│ ├── utils/ # Hàm tiện ích (helper functions)
-│ ├── App.jsx # Component gốc
-│ ├── main.jsx # Entry point, render React
-│ └── Routes.jsx # Định nghĩa routes
-│
-│── .env # Config biến môi trường (FE)
-│── index.html # Entry HTML
-│── package.json # Quản lý dependencies
-│── tailwind.config.js # Cấu hình TailwindCSS
-│── vite.config.js # Cấu hình Vite
-
-01-backend-nodejs-postgres/
-│── src/
-│ ├── config/ # Cấu hình DB, env, ...
-│ ├── controllers/ # Xử lý logic request/response
-│ ├── middleware/ # Middleware (auth, validate, ...)
-│ ├── models/ # Định nghĩa model kết nối DB
-│ ├── routes/ # Định nghĩa API routes
-│ ├── services/ # Business logic/service layer
-│ ├── temp/ # Thư mục tạm
-│ ├── utils/ # Hàm tiện ích
-│ ├── views/ # Template/view (nếu có)
-│ └── server.js # Entry point khởi động server
-│
-│── uploads/ # Lưu file upload
-│── .env # Config biến môi trường (BE)
-│── package.json # Quản lý dependencies
+GocCafe_Website/
+│── app/            # コントローラ・モデル（業務ロジック）
+│── bootstrap/      # フレームワーク初期化設定
+│── config/         # システム設定（DB, App, Auth）
+│── database/       # マイグレーション（8 テーブル）
+│── public/         # 静的リソース（画像, CSS, JS）
+│── resources/
+│   ├── views/      # Blade テンプレート
+│── routes/         # Web ルーティング定義
+│── storage/        # ログ・Excel レポート保存
+│── .env            # 環境変数・DB 接続設定
+│── package.json    # フロントエンド依存管理
 ```
 
 ## 🚀 今後の改善予定 <a id="link8"></a>
-- AIによる学習プランのパーソナライズ：各ユーザーの能力と進捗に応じた資料・クイズ・フラッシュカードを自動提案。  
-- 音声認識 & 発音採点機能：IELTS／TOEIC／その他言語学習向けのスピーキング練習をサポート。
-- 高度なゲーミフィケーション：デイリーミッション、経験値（XP）システム、バーチャルアイテム、チーム対抗イベントを追加。
-- 多様な情報ソースとの連携：Google Drive・Notion・GitHub・Wikipedia から自動で学習コンテンツを生成。
-- モバイルアプリ（iOS / Android）対応：Web版と同期し、いつでもどこでも学習可能。
-- オンライン協力モード：複数人でリアルタイムにクイズやゲームに参加。
-- 学習データ分析：進捗グラフ、スコア予測、弱点スキルの改善提案。
-- 多言語対応：ベトナム語・英語・日本語・韓国語など、国際コミュニティに向けて拡張。
+- QR 決済統合：MoMo、VNPay 対応
+- 会員システム：ポイント・個別特典
+- リアルタイム通知：新規注文・予約通知
+- 売上分析：月次売上グラフ可視化
+- 多言語対応：英語・日本語 UI 追加
 
 </details>
 <!-- <details>
